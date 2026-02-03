@@ -1,7 +1,7 @@
 // make sure all assets are loaded
 document.addEventListener("DOMContentLoaded", function () {
   const postsContainer = document.querySelector(".posts-container");
-  const APIUrl = "https://jsonplaceholder.typicode.com/postdds";
+  const APIUrl = "https://jsonplaceholder.typicode.com/posts";
   async function fetchPosts() {
     try {
       // make the http request
