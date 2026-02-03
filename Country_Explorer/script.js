@@ -64,7 +64,9 @@ document.addEventListener("DOMContentLoaded", () => {
        </div>
 `;
       resultDiv.classList.remove("hidden");
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   }
   //add event
   search.addEventListener("click", searchCountry);
