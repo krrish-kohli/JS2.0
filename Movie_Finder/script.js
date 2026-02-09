@@ -1,4 +1,4 @@
-// www.omdbapi.com/?apikey=[yourkey]&
+// www.omdbapi.com/?apikey=&
 
 http: document.addEventListener("DOMContentLoaded", () => {
   const movieForm = document.getElementById("movieForm");
@@ -16,7 +16,7 @@ http: document.addEventListener("DOMContentLoaded", () => {
       // loading
       movieResults.innerHTML = '<div class="loading">Searching movies...</div>';
       const response = await fetch(
-        `http://www.omdbapi.com/?apikey=27fa0e9d&s=${movieName}`
+        `http://www.omdbapi.com/?apikey=[yourapikey]=${movieName}`
       );
       const data = await response.json();
       if (data.Response === "False") {
