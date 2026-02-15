@@ -54,7 +54,9 @@ document.addEventListener("DOMContentLoaded", function () {
             {
               parts: [
                 {
-                  text: prompt,
+                  text:
+                    prompt +
+                    "\n\nRespond in plain text only. Do not use markdown formatting. Do not use **, #, or HTML tags.",
                 },
               ],
             },
@@ -74,10 +76,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const message = document.createElement("div");
     message.className = `message ${isUser ? "user-message" : ""}`;
     message.innerHTML = `
-  <div class="avatar ${isUser ? "user-avatar" : ""}">
-    ${isUser ? "U" : "AI"}
-  </div>
-  <div class='message's>${text}</div>
+    <div class="avatar ${isUser ? "user-avatar" : ""}">
+      ${isUser ? "U" : "AI"}
+    </div>
+    <div class='message-content'>${text}</div>
   `;
     chatMessages.appendChild(message);
     chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -90,10 +92,10 @@ document.addEventListener("DOMContentLoaded", function () {
     indicator.innerHTML = `
     <div class="avatar">AI</div>
     <div class="typing-indicator">
-      <div class="dot></div>
-      <div class="dot></div>
-      <div class="dot></div>
-      <div class="dot></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
     </div>
     `;
     chatMessages.appendChild(indicator);
