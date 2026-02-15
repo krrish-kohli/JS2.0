@@ -1,5 +1,5 @@
-// apiKey = AIzaSyBLiJjmiY5QcQ0yl_PA-NsixoD6msdX4aw
-// URL: https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=AIzaSyBLiJjmiY5QcQ0yl_PA-NsixoD6msdX4aw
+// apiKey =
+// URL: https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key={apiKey}
 
 document.addEventListener("DOMContentLoaded", function () {
   const chatForm = document.getElementById("chatForm");
@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Generate response
   async function generateResponse(prompt) {
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=AIzaSyBLiJjmiY5QcQ0yl_PA-NsixoD6msdX4aw`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`,
       {
         method: "POST",
         headers: {
