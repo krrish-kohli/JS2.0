@@ -17,24 +17,79 @@ const toggleBtns = document.querySelectorAll(".toggle-btn");
 
 // Step 3: Define the API key for accessing the ExchangeRate-API
 //   - Set the apiKey variable to your ExchangeRate-API key
+const apiKey = "Your API Key";
 
 // Step 4: Set up event listeners for toggling between conversion and exchange modes
+toggleBtns.forEach((btn) => {
+  //   - Step 4a: Add click event listeners to toggle buttons to switch between modes
+  btn.addEventListener("click", () => {
+    toggleBtns.forEach((btn) => btn.classList.remove("active"));
+    btn.classList.add("active");
+
+    //   - Step 4b: Update the UI to reflect the selected mode (conversion or exchange)
+    const mode = btn.getAttribute("data-mode");
+    if (mode === "convert") {
+      convertMode.style.display = "flex";
+      exchangeMode.style.display = "none";
+    } else {
+      convertMode.style.display = "none";
+      exchangeMode.style.display = "flex";
+    }
+  });
+});
 
 // Step 5: Implement the currency conversion functionality
-//   - Step 5a: Add a click event listener to the convert button
-//   - Step 5b: Get the amount, from-currency, and to-currency values from the user
-
-//   - Step 5c: Fetch the conversion rate from the API using the selected currencies
-//   - Step 5d: Calculate the converted amount and update the result display with the converted value and currency symbol
-
-//   - Step 5e: Handle any errors that occur during the API request and provide feedback to the user
+convertBtn.addEventListener("click", () => {
+  //   - Step 5a: Add a click event listener to the convert button
+  //   - Step 5b: Get the amount, from-currency, and to-currency values from the user
+  const amount = amountInput.value;
+  const from = fromCurrency.value;
+  const to = toCurrency.value;
+  //   - Step 5c: Fetch the conversion rate from the API using the selected currencies
+  fetch(`https://v6.exchangerate-api.com/v6/${apiKey}/pair/${from}/${to}`)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      //   - Step 5d: Calculate the converted amount and update the result display with the converted value and currency symbol
+      const rate = data.conversion_rate;
+      const convertedAmount = (amount * rate).toFixed(2);
+      result.innerHTML = `<span class='currency-icon'>${convertedAmount} ${to}</span>`;
+    })
+    .catch((error) => {
+      //   - Step 5e: Handle any errors that occur during the API request and provide feedback to the user
+      console.log(error);
+    });
+});
 
 // Step 6: Implement the exchange rates retrieval functionality
 //   - Step 6a: Add a click event listener to the get rates button
-//   - Step 6b: Get the base currency from the user
-//   - Step 6c: Fetch the exchange rates from the API based on the selected base currency
-//   - Step 6d: Display the fetched exchange rates in a list format within the exchange rates section
-//   - Step 6e: Handle any errors that occur during the API request and provide feedback to the user
+getRatesBtn.addEventListener("click", () => {
+  //   - Step 6b: Get the base currency from the user
+  const base = baseCurrency.value;
+  //   - Step 6c: Fetch the exchange rates from the API based on the selected base currency
+  fetch(`https://v6.exchangerate-api.com/v6/${apiKey}/latest/${base}`)
+    .then((response) => {
+      return response.json();
+    })
+    //   - Step 6d: Display the fetched exchange rates in a list format within the exchange rates section
+    .then((data) => {
+      let ratesHtml = "<h3>Exchange Rates</h3><ul></ul>";
+      for (const [currency, rate] of Object.entries(data.conversion_rates)) {
+        if (currency !== base) {
+          ratesHtml += `<li class='currency-icon'>${currency}: ${rate.toFixed(
+            4
+          )}</li>`;
+        }
+        ratesHtml += "</ul>";
+        exchangeRates.innerHTML = ratesHtml;
+      }
+    })
+    .catch((error) => {
+      //   - Step 6e: Handle any errors that occur during the API request and provide feedback to the user
+      exchangeRates.textContent = "An error occurred. Please try again later!";
+    });
+});
 
 // Step 7: Create a helper function to return the appropriate currency symbol based on the currency code
 //   - Define a getCurrencySymbol function that maps common currency codes to their symbols

@@ -116,13 +116,6 @@ button:hover {
   margin-right: 0.5rem;
 }
 
-footer {
-  text-align: center;
-  margin-top: 2rem;
-  font-size: 0.9rem;
-  color: var(--glass-border);
-}
-
 .toggle-container {
   display: flex;
   justify-content: center;
